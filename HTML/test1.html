@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Digital Clock</title>
+
+<script>
+	function displayTime() {
+		var elt = document.getElementById("clock"); // Find element with id="clock"
+		var now = new Date();
+		elt.innerHTML = now.toLocaleTimeString(); 
+		setTimeout(displayTime, 1000);
+	}
+	window.onload = displayTime; // Start displaying the time when document loads. 
+
+	document.write("<p>Document title: " + document.title); 
+	document.write("<br>URL: " + document.URL); 
+	document.write("<br>Referred by: " + document.referrer); 
+	document.write("<br>Modified on: " + document.lastModified); 
+	document.write("<br>Accessed on: " + new Date());
+
+	// Define a simple "streaming" API for setting the innerHTML of an element. 
+	function ElementStream(elt) {
+		if (typeof elt === "string") elt = document.getElementById(elt); 
+		this.elt = elt;
+		this.buffer = "";
+	}
+	
+	ElementStream.prototype.write = function() {
+		this.buffer += Array.prototype.join.call(arguments, ""); };
+
+	ElementStream.prototype.writeln = function() {
+		this.buffer += Array.prototype.join.call(arguments, "") + "\n"; };
+		ElementStream.prototype.close = function() {
+		this.elt.innerHTML = this.buffer;
+		this.buffer = ""; 
+	};
+
+</script>
+
+<style>
+#clock {
+	font: bold 24pt sans; 
+	background: #ddf; 
+	padding: 10px;
+	border: solid black 2px; 
+	border-radius: 10px;
+}
+</style>
+
+</head>
+<body>
+<h1>Digital Clock</h1>
+<span id="clock"></span><br><br>
+<form name="shipping"> 
+<fieldset><legend>Shipping Method</legend>
+<label><input type="radio" name="method" value="1st">First-class</label> 
+<label><input type="radio" name="method" value="2day">2-day Air</label> 
+<label><input type="radio" name="method" value="overnite">Overnight</label>
+</fieldset>
+</form>
+<script>document.write("test");</script>
+<button onclick="alert('Thank you');">Click Here</button>
+<button id="mybutton">Click me</button>
+<script>
+var b = document.getElementById("mybutton");
+b.onclick = function() { alert("Thanks for clicking me!"); }; 
+b.addEventListener("click", function() { alert("Thanks again!"); }, false);
+</script>
+</body>
+</html>
